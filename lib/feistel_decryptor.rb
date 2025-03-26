@@ -1,4 +1,6 @@
-require_relative './feistel_swapper.rb'
+# frozen_string_literal: true
+
+require_relative './feistel_swapper'
 
 class FeistelDecryptor < FeistelSwapper
   def initialize(params)
@@ -7,7 +9,7 @@ class FeistelDecryptor < FeistelSwapper
 
   def decrypt
     # 1st swap
-    first_result = FeistelSwapper.new({bits: @bits_to_decrypt, key: ENV.fetch('KEY') }).swap
+    FeistelSwapper.new({ bits: @bits_to_decrypt, key: ENV.fetch('KEY') }).swap
     # 2nd swap
     # final_result = FeistelSwapper.new({bits: first_result, key: ENV.fetch('KEY') }).swap
   end

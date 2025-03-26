@@ -1,16 +1,18 @@
+# frozen_string_literal: true
+
 class FeistelSwapper
   # Applies a FeistelSwap
   def initialize(params)
     @key =  if params[:key].nil?
-              raise "Key must be present"
-            else 
-              params[:key].split("").map(&:to_i)
-            end
-    
-    @bits = if params[:bits].nil?
-              raise "Bits to encrypt must be present"
+              raise 'Key must be present'
             else
-              params[:bits].split("").map(&:to_i)
+              params[:key].split('').map(&:to_i)
+            end
+
+    @bits = if params[:bits].nil?
+              raise 'Bits to encrypt must be present'
+            else
+              params[:bits].split('').map(&:to_i)
             end
   end
 
@@ -21,12 +23,12 @@ class FeistelSwapper
   end
 
   def split_bits
-    @left = @bits[0..(@bits.length/2 - 1)]
-    @right = @bits[(@bits.length/2)..@bits.length]
+    @left = @bits[0..(@bits.length / 2 - 1)]
+    @right = @bits[(@bits.length / 2)..@bits.length]
   end
 
   def run_function
-    @key.zip(@right).map{ |kd, rd| kd ^ rd }
+    @key.zip(@right).map { |kd, rd| kd ^ rd }
   end
 
   def join_bits(crypted_portion)
@@ -35,6 +37,6 @@ class FeistelSwapper
       new_right << (l ^ r)
     end
 
-    (@right + new_right).join("")
+    (@right + new_right).join('')
   end
 end
